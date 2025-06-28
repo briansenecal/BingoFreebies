@@ -31,4 +31,3 @@ Tired of manually clicking every freebie link you find in a post? This tool make
 This tool is intended for personal use only. It simply streamlines access to promotional content that is already publicly available. No proprietary assets, trademarks, or reverse engineering are used or implied.
 
 ---
-
