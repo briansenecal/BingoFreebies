@@ -10,22 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
         files: ["content.js"],
       },
       () => {
-        // After injection, read from storage
-        chrome.storage.local.get("links", ({ links }) => {
-          console.log("Restored links:", links);
-          if (links && Array.isArray(links)) {
-            document.getElementById("status").textContent = `${links.length} links found.`;
-            // Add rendering here if needed
-          } else {
-            document.getElementById("status").textContent = "No links found.";
-          }
-        });
+        if (chrome.runtime.lastError) {
+          console.error(
+            "❌ Injection failed:",
+            chrome.runtime.lastError.message
+          );
+        } else {
+          console.log("✅ Injection succeeded.");
+        }
       }
     );
   });
 });
-
-
 
 document.getElementById("claimBtn").addEventListener("click", () => {
   if (bingoLinks.length === 0) {
@@ -33,7 +29,7 @@ document.getElementById("claimBtn").addEventListener("click", () => {
     return;
   }
 
-  bingoLinks.forEach(link => {
+  bingoLinks.forEach((link) => {
     chrome.tabs.create({ url: link, active: false });
   });
 });
