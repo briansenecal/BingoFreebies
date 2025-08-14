@@ -166,7 +166,7 @@ window.parseLinks = window.parseLinks || (() => {
             }
             break;
           case /^[GWV]/.test(line):
-            const webMatch = line.match(/(https?:\/\/[^\s]+)/i);
+            const webMatch = line.match(/\[\[(https?:\/\/[^\s\]]+)\]/i);
             if (line.search(/^G/i) !== -1) {
               general = webMatch[1];
             }
@@ -262,12 +262,12 @@ function parseExpiresUTC(expiresText, currentSection) {
 
 
   } else if (
-    /^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/.test(
+    /(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/.test(
       expiresNormalized
     )
   ) {
     const weekdayMatch = expiresNormalized.match(
-      /^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/
+      /(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/
     );
     const timeMatch = expiresNormalized.match(/(\d{1,2})\s*(am|pm)\s*utc/);
 
