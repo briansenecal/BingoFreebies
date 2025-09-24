@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request, jsonify
 from flask_cors import CORS
-from link_parser import extract_links
+from .link_parser import extract_links
 
 
 
