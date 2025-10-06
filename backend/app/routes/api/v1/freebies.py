@@ -12,7 +12,7 @@ def _parse_iso8601(s: str | None):
 def ingest_freebie():
     """Accept a freebie JSON payload, validate it, and acknowledge receipt."""
     try:
-        payload = request.get_json(force=True)
+        payload = request.get_json(force=True) 
     except Exception:
         return jsonify({"ok": False, "error": "InvalidJSON"}), 400
 
@@ -51,3 +51,19 @@ def ingest_freebie():
             "variants": variants,
         }
     }), 202  # 202 Accepted since we didn't persist anything yet
+
+@bp.post("/freebies/open-link")
+def open_link():
+    from flask import request, jsonify
+    import webbrowser
+
+    data = request.get_json(silent=True) or {}
+    link = (data.get("link") or "").strip()
+    if not link:
+        return jsonify({"ok": False, "error": "missing link"}), 400
+
+    try:
+        webbrowser.open_new_tab(link)
+        return jsonify({"ok": True, "opened": link})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 500
